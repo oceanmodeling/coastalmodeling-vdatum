@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=45", "setuptools_scm[toml]>=7", "wheel", "numpy"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+
+[tool.setuptools.packages]
+find = {}
+
+[project]
+name = "coastalmodeling-vdatum"
+authors = [
+    {name = "Felicio Cassalho", email = "felicio.cassalho@noaa.gov"},
+    {name = "Jack Riley", email = "name.name@noaa.gov"}
+]
+maintainers = [
+    {name = "Soroosh Mani", email = "felicio.cassalho@noaa.gov"}
+]
+description = "Package to support costal modelers with vertical datum conversion."
+license = {file = "LICENSE"}
+readme = "README.md"
+requires-python = '>=3.11'
+dependencies = [
+    "pyproj>=3.7.0", 
+    "numpy>=2.1.1", 
+    ]
+dynamic = ["version"]
+
+[project.urls]
+Documentation = ""
+Source = "https://github.com/oceanmodeling/coastalmodeling-vdatum"
+
+# [project.scripts]
+# coastalmodeling-vdatum = "coastalmodeling-vdatum.__main__:main"
+
+# [project.optional-dependencies]
+# testing = ['pylint>=2.14']
+# documentation = [
+#     'sphinx < 7.0.0', # due to sphinx_rtd_theme support
+#     'sphinx-rtd-theme', 'sphinx-argparse',
+#     'mistune==0.8.4', 'm2r2', 'numpydoc'
+# ]
