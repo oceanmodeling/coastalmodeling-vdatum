@@ -11,7 +11,7 @@ find = {}
 name = "coastalmodeling-vdatum"
 authors = [
     {name = "Felicio Cassalho", email = "felicio.cassalho@noaa.gov"},
-    {name = "Jack Riley", email = "name.name@noaa.gov"}
+    # {name = "Jack Riley", email = "name.name@noaa.gov"}
 ]
 maintainers = [
     {name = "Soroosh Mani", email = "felicio.cassalho@noaa.gov"}
@@ -21,8 +21,8 @@ license = {file = "LICENSE"}
 readme = "README.md"
 requires-python = '>=3.11'
 dependencies = [
-    "pyproj>=3.7.0", 
-    "numpy>=2.1.1", 
+    "pyproj==3.7.0", 
+    "numpy==2.1.1", 
     ]
 dynamic = ["version"]
 
