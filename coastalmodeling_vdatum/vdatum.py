@@ -30,38 +30,38 @@ def transform(lat, lon ,z ,h_g , g_g, g_h, epoch=None):
 def inputs(vd_from,vd_to):
     if vd_from == "xgeoid20b" and vd_to == "mllw":
         h_g = path.xGEOID20B
-        g_g = geoid_trITRF2014_to_ITRF2020
+        g_g = geoid_tr.ITRF2014_to_ITRF2020
         g_h = path.MLLW_ITRF2020_2020
     if vd_from == "mllw" and vd_to == "xgeoid20b":
         h_g = path.MLLW_ITRF2020_2020
-        g_g = geoid_trITRF2020_to_ITRF2014
+        g_g = geoid_tr.ITRF2020_to_ITRF2014
         g_h = path.xGEOID20B
 
     if vd_from == "xgeoid20b" and vd_to == "lmsl":
         h_g = path.xGEOID20B
-        g_g = geoid_trITRF2014_to_ITRF2020
+        g_g = geoid_tr.ITRF2014_to_ITRF2020
         g_h = path.LMSL_ITRF2020_2020
     if vd_from == "lmsl" and vd_to == "xgeoid20b":
         h_g = path.LMSL_ITRF2020_2020
-        g_g = geoid_trITRF2020_to_ITRF2014
+        g_g = geoid_tr.ITRF2020_to_ITRF2014
         g_h = path.xGEOID20B
 
     if vd_from == "navd88" and vd_to == "mllw":
         h_g = "us_noaa_g2018u0.tif"
-        g_g = geoid_trNAD832011_2010_to_ITRF2020_2020
+        g_g = geoid_tr.NAD832011_2010_to_ITRF2020_2020
         g_h = path.MLLW_ITRF2020_2020
     if vd_from == "mllw" and vd_to == "navd88":
         h_g = path.MLLW_ITRF2020_2020
-        g_g = geoid_trITRF2020_2020_to_NAD832011_2010
+        g_g = geoid_tr.ITRF2020_2020_to_NAD832011_2010
         g_h = "us_noaa_g2018u0.tif"
 
     if vd_from == "navd88" and vd_to == "lmsl":
         h_g = "us_noaa_g2018u0.tif"
-        g_g = geoid_trNAD832011_2010_to_ITRF2020_2020
+        g_g = geoid_tr.NAD832011_2010_to_ITRF2020_2020
         g_h = path.LMSL_ITRF2020_2020
     if vd_from == "lmsl" and vd_to == "navd88":
         h_g = path.LMSL_ITRF2020_2020
-        g_g = geoid_trITRF2020_2020_to_NAD832011_2010
+        g_g = geoid_tr.ITRF2020_2020_to_NAD832011_2010
         g_h = "us_noaa_g2018u0.tif"
 
     if vd_from == "mllw" and vd_to == "lmsl":
@@ -75,11 +75,11 @@ def inputs(vd_from,vd_to):
 
     if vd_from == "navd88" and vd_to == "xgeoid20b":
         h_g = "us_noaa_g2018u0.tif"
-        g_g = geoid_trNAD832011_to_ITRF2014
+        g_g = geoid_tr.NAD832011_to_ITRF2014
         g_h = path.xGEOID20B
     if vd_from == "xgeoid20b" and vd_to == "navd88":
         h_g = path.xGEOID20B
-        g_g = geoid_trITRF2014_to_NAD832011
+        g_g = geoid_tr.ITRF2014_to_NAD832011
         g_h = "us_noaa_g2018u0.tif"
 
     else:
