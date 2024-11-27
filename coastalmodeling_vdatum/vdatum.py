@@ -4,6 +4,7 @@ import logging
 import warnings
 
 import pyproj
+import numpy as np
 # pyproj.network.set_network_enabled(active=True)
 
 from coastalmodeling_vdatum import geoid_tr
