@@ -36,11 +36,11 @@ def build_pipe(lat, lon ,z ,h_g , g_g, g_h, online, epoch=None):
     tr = pyproj.Transformer.from_pipeline(pipeline).transform
     if epoch is not None:
         t=[epoch for l in lat]
-        out = tr(lat,lon,z,t)
+        clat,clon,cz,ct = tr(lat,lon,z,t)
     else:
-        out = tr(lat,lon,z)
+        clat,clon,cz = tr(lat,lon,z)
 
-    return out
+    return clat,clon,cz
 
 
 def inputs(vd_from,vd_to):
