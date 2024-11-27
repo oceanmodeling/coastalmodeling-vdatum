@@ -48,62 +48,65 @@ def inputs(vd_from,vd_to):
     Calls the respective (height - geoid), (geoid to geoid), and (geoid - height)
     transformations given the vertical datum of origin and target vertical datum
     """
-    if vd_from == "xgeoid20b" and vd_to == "mllw":
-        h_g = path.xGEOID20B
-        g_g = geoid_tr.ITRF2014_to_ITRF2020
-        g_h = path.MLLW_ITRF2020_2020
-    if vd_from == "mllw" and vd_to == "xgeoid20b":
-        h_g = path.MLLW_ITRF2020_2020
-        g_g = geoid_tr.ITRF2020_to_ITRF2014
-        g_h = path.xGEOID20B
+    try:
+        if vd_from == "xgeoid20b" and vd_to == "mllw":
+            h_g = path.xGEOID20B
+            g_g = geoid_tr.ITRF2014_to_ITRF2020
+            g_h = path.MLLW_ITRF2020_2020
+        if vd_from == "mllw" and vd_to == "xgeoid20b":
+            h_g = path.MLLW_ITRF2020_2020
+            g_g = geoid_tr.ITRF2020_to_ITRF2014
+            g_h = path.xGEOID20B
+    
+        if vd_from == "xgeoid20b" and vd_to == "lmsl":
+            h_g = path.xGEOID20B
+            g_g = geoid_tr.ITRF2014_to_ITRF2020
+            g_h = path.LMSL_ITRF2020_2020
+        if vd_from == "lmsl" and vd_to == "xgeoid20b":
+            h_g = path.LMSL_ITRF2020_2020
+            g_g = geoid_tr.ITRF2020_to_ITRF2014
+            g_h = path.xGEOID20B
+    
+        if vd_from == "navd88" and vd_to == "mllw":
+            h_g = "us_noaa_g2018u0.tif"
+            g_g = geoid_tr.NAD832011_2010_to_ITRF2020_2020
+            g_h = path.MLLW_ITRF2020_2020
+        if vd_from == "mllw" and vd_to == "navd88":
+            h_g = path.MLLW_ITRF2020_2020
+            g_g = geoid_tr.ITRF2020_2020_to_NAD832011_2010
+            g_h = "us_noaa_g2018u0.tif"
+    
+        if vd_from == "navd88" and vd_to == "lmsl":
+            h_g = "us_noaa_g2018u0.tif"
+            g_g = geoid_tr.NAD832011_2010_to_ITRF2020_2020
+            g_h = path.LMSL_ITRF2020_2020
+        if vd_from == "lmsl" and vd_to == "navd88":
+            h_g = path.LMSL_ITRF2020_2020
+            g_g = geoid_tr.ITRF2020_2020_to_NAD832011_2010
+            g_h = "us_noaa_g2018u0.tif"
+    
+        if vd_from == "mllw" and vd_to == "lmsl":
+            h_g = path.MLLW_ITRF2020_2020
+            g_g = None
+            g_h = path.LMSL_ITRF2020_2020
+        if vd_from == "lmsl" and vd_to == "mllw":
+            h_g = path.LMSL_ITRF2020_2020
+            g_g = None
+            g_h = path.MLLW_ITRF2020_2020
+    
+        if vd_from == "navd88" and vd_to == "xgeoid20b":
+            h_g = "us_noaa_g2018u0.tif"
+            g_g = geoid_tr.NAD832011_to_ITRF2014
+            g_h = path.xGEOID20B
+        if vd_from == "xgeoid20b" and vd_to == "navd88":
+            h_g = path.xGEOID20B
+            g_g = geoid_tr.ITRF2014_to_NAD832011
+            g_h = "us_noaa_g2018u0.tif"
 
-    if vd_from == "xgeoid20b" and vd_to == "lmsl":
-        h_g = path.xGEOID20B
-        g_g = geoid_tr.ITRF2014_to_ITRF2020
-        g_h = path.LMSL_ITRF2020_2020
-    if vd_from == "lmsl" and vd_to == "xgeoid20b":
-        h_g = path.LMSL_ITRF2020_2020
-        g_g = geoid_tr.ITRF2020_to_ITRF2014
-        g_h = path.xGEOID20B
-
-    if vd_from == "navd88" and vd_to == "mllw":
-        h_g = "us_noaa_g2018u0.tif"
-        g_g = geoid_tr.NAD832011_2010_to_ITRF2020_2020
-        g_h = path.MLLW_ITRF2020_2020
-    if vd_from == "mllw" and vd_to == "navd88":
-        h_g = path.MLLW_ITRF2020_2020
-        g_g = geoid_tr.ITRF2020_2020_to_NAD832011_2010
-        g_h = "us_noaa_g2018u0.tif"
-
-    if vd_from == "navd88" and vd_to == "lmsl":
-        h_g = "us_noaa_g2018u0.tif"
-        g_g = geoid_tr.NAD832011_2010_to_ITRF2020_2020
-        g_h = path.LMSL_ITRF2020_2020
-    if vd_from == "lmsl" and vd_to == "navd88":
-        h_g = path.LMSL_ITRF2020_2020
-        g_g = geoid_tr.ITRF2020_2020_to_NAD832011_2010
-        g_h = "us_noaa_g2018u0.tif"
-
-    if vd_from == "mllw" and vd_to == "lmsl":
-        h_g = path.MLLW_ITRF2020_2020
-        g_g = None
-        g_h = path.LMSL_ITRF2020_2020
-    if vd_from == "lmsl" and vd_to == "mllw":
-        h_g = path.LMSL_ITRF2020_2020
-        g_g = None
-        g_h = path.MLLW_ITRF2020_2020
-
-    if vd_from == "navd88" and vd_to == "xgeoid20b":
-        h_g = "us_noaa_g2018u0.tif"
-        g_g = geoid_tr.NAD832011_to_ITRF2014
-        g_h = path.xGEOID20B
-    if vd_from == "xgeoid20b" and vd_to == "navd88":
-        h_g = path.xGEOID20B
-        g_g = geoid_tr.ITRF2014_to_NAD832011
-        g_h = "us_noaa_g2018u0.tif"
-
-    else:
-        warnings.warn(f"Vertical datum donversion not found. Datums available:'xgeoid20b','navd88','mllw','lmsl', datum conversion requested: from {vd_from} to {vd_to}")
+    except:
+        warnings.warn(f"Vertical datum donversion not found.
+        Datums available:'xgeoid20b','navd88','mllw','lmsl',
+        datum conversion requested: from {vd_from} to {vd_to}")
 
     return h_g,g_g,g_h
 
