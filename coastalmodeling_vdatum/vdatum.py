@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
 import pyproj
-import numpy as np
+
+import geoid_tr
+import path
 
 def transform(lat, lon ,z ,h_g , g_g, g_h, epoch=None):
     """
@@ -97,4 +99,4 @@ def main(vd_from, vd_to, lat, lon ,z, epoch=None):
 
 if __name__ == '__main__':
 
-    print(main("xgeoid20b","mllw", [27,30,26], [-83,-80,-80,] ,[0,0,0], epoch=2010))
+    main(vd_from, vd_to, lat, lon ,z, epoch=None)
