@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
+from typing import Union
+import logging
+import warnings
 
 import pyproj
 # pyproj.network.set_network_enabled(active=True)
 
 from coastalmodeling_vdatum import geoid_tr
 from coastalmodeling_vdatum import path
+
+_logger = logging.getLogger(__name__)
 
 def build_pipe(lat, lon ,z ,h_g , g_g, g_h, online, epoch=None):
     """
@@ -97,7 +102,9 @@ def inputs(vd_from,vd_to):
         g_h = "us_noaa_g2018u0.tif"
 
     else:
-        pass
+        warnings.warn(f"Vertical datum donversion not found. Datums available:
+        'xgeoid20b',"navd88','mllw','lmsl',
+        datum conversion requested: from {vd_from} to {vd_to}")
 
     return h_g,g_g,g_h
 
