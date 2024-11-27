@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import pyproj
+pyproj.network.set_network_enabled(active=True)
 
 from coastalmodeling_vdatum import geoid_tr
 from coastalmodeling_vdatum import path
