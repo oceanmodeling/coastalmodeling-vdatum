@@ -9,5 +9,6 @@ The package can be loaded as:
 ```
 from coastalmodeling_vdatum import vdatum
 
-x,y,z = vdatum.convert(vd_from, vd_to, lat, lon ,z, online=True, epoch=None) #where vd_from and vd_to are: "xgeoid20b","navd88","mllw", or"lmsl"
+x,y,z = vdatum.convert(vd_from, vd_to, lat, lon ,z, online=True, epoch=None)
+#note vd_from and vd_to are: "xgeoid20b","navd88","mllw", or"lmsl"
 ```
