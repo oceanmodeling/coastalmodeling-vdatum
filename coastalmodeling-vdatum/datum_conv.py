@@ -1,30 +1,100 @@
+#!/usr/bin/env python3
 
 import pyproj
 import numpy as np
-pyproj.network.set_network_enabled(active=True)
 
-def navd88_to_xgeoid20b(lat,lon,z,t):
-    nad832011_navd88geoid18_to_itrf14_2010_xgeoid20b =r"""+proj=pipeline
+def transform(lat, lon ,z ,h_g , g_g, g_h, epoch=None):
+    """
+    """
+    pipeline=f"""+proj=pipeline
   +step +proj=axisswap +order=2,1
-  +step +proj=unitconvert +xy_in=deg +xy_out=rad
-  +step +proj=vgridshift +grids=us_noaa_g2018u0.tif +multiplier=1
-  +step +proj=cart +ellps=GRS80
-  +step +inv +proj=helmert +x=1.0053 +y=-1.9092 +z=-0.5416 +rx=0.0267814
-        +ry=-0.0004203 +rz=0.0109321 +s=0.00037 +dx=0.0008 +dy=-0.0006
-        +dz=-0.0014 +drx=6.67e-05 +dry=-0.0007574 +drz=-5.13e-05 +ds=-7e-05
-        +t_epoch=2010 +convention=coordinate_frame
-  +step +inv +proj=cart +ellps=GRS80
-  +step +proj=vgridshift +grids=C:/Users/Felicio.Cassalho/Downloads/xGEOID20B.tif +multiplier=-1
-  +step +proj=unitconvert +xy_in=rad +xy_out=deg
-  +step +proj=axisswap +order=2,1"""
-
-    t_nad832011_navd88geoid18_to_itrf14_2010_xgeoid20b = pyproj.Transformer.from_pipeline(nad832011_navd88geoid18_to_itrf14_2010_xgeoid20b).transform
-    out = t_nad832011_navd88geoid18_to_itrf14_2010_xgeoid20b(lat,lon,z,t)
+  +step +proj=unitconvert +xy_in=deg +z_in=m +xy_out=rad +z_out=m
+  +step +proj=vgridshift +grids={h_g} +multiplier=1
+  {g_g}
+  +step +proj=vgridshift +grids={g_h} +multiplier=-1
+  +step +proj=unitconvert +xy_in=rad +z_in=m +xy_out=deg +z_out=m
+  +step +proj=axisswap +order=2,1
+    """
+    tr = pyproj.Transformer.from_pipeline(pipeline).transform
+    if epoch is not None:
+        t=[epoch for l in lat]
+        out = tr(lat,lon,z,t)
+    else:
+        out = tr(lat,lon,z)
 
     return out
 
 
+def inputs(vd_from,vd_to):
+    if vd_from == "xgeoid20b" and vd_to == "mllw":
+        h_g = xGEOID20B
+        g_g = ITRF2014_to_ITRF2020
+        g_h = MLLW_ITRF2020_2020
+    if vd_from == "mllw" and vd_to == "xgeoid20b":
+        h_g = MLLW_ITRF2020_2020
+        g_g = ITRF2020_to_ITRF2014
+        g_h = xGEOID20B
+
+    if vd_from == "xgeoid20b" and vd_to == "lmsl":
+        h_g = xGEOID20B
+        g_g = ITRF2014_to_ITRF2020
+        g_h = LMSL_ITRF2020_2020
+    if vd_from == "lmsl" and vd_to == "xgeoid20b":
+        h_g = LMSL_ITRF2020_2020
+        g_g = ITRF2020_to_ITRF2014
+        g_h = xGEOID20B
+
+    if vd_from == "navd88" and vd_to == "mllw":
+        h_g = "us_noaa_g2018u0.tif"
+        g_g = NAD832011_2010_to_ITRF2020_2020
+        g_h = MLLW_ITRF2020_2020
+    if vd_from == "mllw" and vd_to == "navd88":
+        h_g = MLLW_ITRF2020_2020
+        g_g = ITRF2020_2020_to_NAD832011_2010
+        g_h = "us_noaa_g2018u0.tif"
+
+    if vd_from == "navd88" and vd_to == "lmsl":
+        h_g = "us_noaa_g2018u0.tif"
+        g_g = NAD832011_2010_to_ITRF2020_2020
+        g_h = LMSL_ITRF2020_2020
+    if vd_from == "lmsl" and vd_to == "navd88":
+        h_g = LMSL_ITRF2020_2020
+        g_g = ITRF2020_2020_to_NAD832011_2010
+        g_h = "us_noaa_g2018u0.tif"
+
+    if vd_from == "mllw" and vd_to == "lmsl":
+        h_g = MLLW_ITRF2020_2020
+        g_g = None
+        g_h = LMSL_ITRF2020_2020
+    if vd_from == "lmsl" and vd_to == "mllw":
+        h_g = LMSL_ITRF2020_2020
+        g_g = None
+        g_h = MLLW_ITRF2020_2020
+
+    if vd_from == "navd88" and vd_to == "xgeoid20b":
+        h_g = "us_noaa_g2018u0.tif"
+        g_g = NAD832011_to_ITRF2014
+        g_h = xGEOID20B
+    if vd_from == "xgeoid20b" and vd_to == "navd88":
+        h_g = xGEOID20B
+        g_g = ITRF2014_to_NAD832011
+        g_h = "us_noaa_g2018u0.tif"
+
+    else:
+        pass
+
+    return h_g,g_g,g_h
+
+
+def main(vd_from, vd_to, lat, lon ,z, epoch=None):
+    """
+    """
+    h_g,g_g,g_h=inputs(vd_from,vd_to)
+    clat,clon,cz=transform(lat, lon ,z ,h_g , g_g, g_h, epoch=epoch)
+
+    return clat,clon,cz
+
 
 if __name__ == '__main__':
 
-    print(navd88_to_xgeoid20b(np.array([40,30,10]),[-100,-80,-80],[0,0,0],[2010,2010,2010]))
+    print(main("xgeoid20b","mllw", [27,30,26], [-83,-80,-80,] ,[0,0,0], epoch=2010))
