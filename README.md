@@ -1,7 +1,7 @@
 # coastalmodeling-vdatum
 To support costal modelers with vertical datum conversion
 
-### Installation 
+## Installation 
 `pip install "git+https://github.com/oceanmodeling/coastalmodeling-vdatum.git"` 
 
 ## Vertical Datum Conversion
@@ -12,3 +12,5 @@ from coastalmodeling_vdatum import vdatum
 x,y,z = vdatum.convert(vd_from, vd_to, lat, lon ,z, online=True, epoch=None)
 #note vd_from and vd_to are: "xgeoid20b","navd88","mllw", or"lmsl"
 ```
+
+## Compute Node (offline) Applications
