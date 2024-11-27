@@ -2,8 +2,8 @@
 
 import pyproj
 
-import geoid_tr
-import path
+from coastalmodeling_vdatum import geoid_tr
+from coastalmodeling_vdatum import path
 
 def transform(lat, lon ,z ,h_g , g_g, g_h, epoch=None):
     """
