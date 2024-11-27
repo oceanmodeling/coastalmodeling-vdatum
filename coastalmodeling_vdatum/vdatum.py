@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
 
 import pyproj
-pyproj.network.set_network_enabled(active=True)
+# pyproj.network.set_network_enabled(active=True)
 
 from coastalmodeling_vdatum import geoid_tr
 from coastalmodeling_vdatum import path
 
-def build_pipe(lat, lon ,z ,h_g , g_g, g_h, epoch=None):
+def build_pipe(lat, lon ,z ,h_g , g_g, g_h, online, epoch=None):
     """
     Basic pipeline that is common to all transfomations.
     h_g: height - geoid
     g_g: geiod to geiod
     g_h: geoid - height
     """
+
     pipeline=f"""+proj=pipeline
   +step +proj=axisswap +order=2,1
   +step +proj=unitconvert +xy_in=deg +z_in=m +xy_out=rad +z_out=m
@@ -22,6 +23,10 @@ def build_pipe(lat, lon ,z ,h_g , g_g, g_h, epoch=None):
   +step +proj=unitconvert +xy_in=rad +z_in=m +xy_out=deg +z_out=m
   +step +proj=axisswap +order=2,1
     """
+
+    if online is True:
+        pyproj.network.set_network_enabled(active=True)
+
     tr = pyproj.Transformer.from_pipeline(pipeline).transform
     if epoch is not None:
         t=[epoch for l in lat]
@@ -101,11 +106,12 @@ def convert(vd_from: str,
             vd_to: str,
             lat: Union[int, float, list, np.array],
             lon: Union[int, float, list, np.array],
-            z: Union[int, float, list, np.array],,
-            epoch: int=None) -> Union[list, np.array]:
-    """Converts vertical datum
+            z: Union[int, float, list, np.array],
+            epoch: int=None,
+            online = True) -> Union[list, np.array]:
+    """Converts vertical datum (main function)
     
-    Given the vertical datum you are in, the vertical datum you want to go to, 
+    Given the vertical datum of origin, the target vertical datum, 
     xyz and epoch (optional), output the xyz for the targer vertical datum.
 
     Parameters
@@ -118,12 +124,15 @@ def convert(vd_from: str,
         "xgeoid20b","navd88","mllw","lmsl"
     lat : int or float or list or np.array
         Latitudes, e.g. [30,26,27.5] or 28.8
-
     lon : int or float or list or np.array
         Longitudes, e.g. [-80,-75,-77.5] or 78.8
-
     z : int or float or list or np.array
         Longitudes, e.g. [0,0,.1] or 10
+    epoch : int [Optional]
+        Default is set to None
+    online : True(default) or False [Optional]
+        Needs to be set to True is geotiff files (path.py) are retrieve from the web
+        Can be set to False if geotiff files are stored locally (ideal for HPC compute node)
 
     Returns
     -------
@@ -132,15 +141,15 @@ def convert(vd_from: str,
 
     Notes
     -----
-    The conversions are based on predefined geotiff files - see path.py
-    Geoid transformations use predefined proj pipelines - see geoid_tr.py
-
-    The size of lat, lon, and z must match.
-    Points outside the vertical datum conversion domain will be output as inf
+    - The conversions are based on predefined geotiff files - see path.py
+    - Geoid transformations use predefined proj pipelines - see geoid_tr.py
+    - The size of lat, lon, and z must match.
+    - Points outside the vertical datum conversion domain will be output as inf
     """
 
     h_g,g_g,g_h=inputs(vd_from,vd_to)
-    clat,clon,cz=build_pipe(lat, lon ,z ,h_g , g_g, g_h, epoch=epoch)
+    
+    clat,clon,cz=build_pipe(lat, lon ,z ,h_g , g_g, g_h, online, epoch=epoch)
 
     return clat,clon,cz
 
