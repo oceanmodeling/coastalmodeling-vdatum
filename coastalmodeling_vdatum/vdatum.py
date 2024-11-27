@@ -102,9 +102,7 @@ def inputs(vd_from,vd_to):
         g_h = "us_noaa_g2018u0.tif"
 
     else:
-        warnings.warn(f"Vertical datum donversion not found.
-        Datums available:'xgeoid20b','navd88','mllw','lmsl',
-        datum conversion requested: from {vd_from} to {vd_to}")
+        warnings.warn(f"Vertical datum donversion not found. Datums available:'xgeoid20b','navd88','mllw','lmsl', datum conversion requested: from {vd_from} to {vd_to}")
 
     return h_g,g_g,g_h
 
