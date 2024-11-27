@@ -163,4 +163,4 @@ def convert(vd_from: str,
 
 if __name__ == '__main__':
 
-    convert(vd_from, vd_to, lat, lon ,z, epoch=None)
+    convert(vd_from, vd_to, lat, lon ,z, online=True, epoch=None)
