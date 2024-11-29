@@ -5,10 +5,8 @@ import warnings
 
 import pyproj
 import numpy as np
-# pyproj.network.set_network_enabled(active=True)
 
-from coastalmodeling_vdatum import geoid_tr
-from coastalmodeling_vdatum import path
+from coastalmodeling_vdatum import _geoid_tr, _path
 
 _logger = logging.getLogger(__name__)
 
@@ -49,57 +47,57 @@ def inputs(vd_from,vd_to):
     transformations given the vertical datum of origin and target vertical datum
     """
     if vd_from == "xgeoid20b" and vd_to == "mllw":
-        h_g = path.xGEOID20B
-        g_g = geoid_tr.ITRF2014_to_ITRF2020
-        g_h = path.MLLW_ITRF2020_2020
+        h_g = _path.xGEOID20B
+        g_g = _geoid_tr.ITRF2014_to_ITRF2020
+        g_h = _path.MLLW_ITRF2020_2020
     elif vd_from == "mllw" and vd_to == "xgeoid20b":
-        h_g = path.MLLW_ITRF2020_2020
-        g_g = geoid_tr.ITRF2020_to_ITRF2014
-        g_h = path.xGEOID20B
+        h_g = _path.MLLW_ITRF2020_2020
+        g_g = _geoid_tr.ITRF2020_to_ITRF2014
+        g_h = _path.xGEOID20B
 
     elif vd_from == "xgeoid20b" and vd_to == "lmsl":
-        h_g = path.xGEOID20B
-        g_g = geoid_tr.ITRF2014_to_ITRF2020
-        g_h = path.LMSL_ITRF2020_2020
+        h_g = _path.xGEOID20B
+        g_g = _geoid_tr.ITRF2014_to_ITRF2020
+        g_h = _path.LMSL_ITRF2020_2020
     elif vd_from == "lmsl" and vd_to == "xgeoid20b":
-        h_g = path.LMSL_ITRF2020_2020
-        g_g = geoid_tr.ITRF2020_to_ITRF2014
-        g_h = path.xGEOID20B
+        h_g = _path.LMSL_ITRF2020_2020
+        g_g = _geoid_tr.ITRF2020_to_ITRF2014
+        g_h = _path.xGEOID20B
 
     elif vd_from == "navd88" and vd_to == "mllw":
         h_g = "us_noaa_g2018u0.tif"
-        g_g = geoid_tr.NAD832011_2010_to_ITRF2020_2020
-        g_h = path.MLLW_ITRF2020_2020
+        g_g = _geoid_tr.NAD832011_2010_to_ITRF2020_2020
+        g_h = _path.MLLW_ITRF2020_2020
     elif vd_from == "mllw" and vd_to == "navd88":
-        h_g = path.MLLW_ITRF2020_2020
-        g_g = geoid_tr.ITRF2020_2020_to_NAD832011_2010
+        h_g = _path.MLLW_ITRF2020_2020
+        g_g = _geoid_tr.ITRF2020_2020_to_NAD832011_2010
         g_h = "us_noaa_g2018u0.tif"
 
     elif vd_from == "navd88" and vd_to == "lmsl":
         h_g = "us_noaa_g2018u0.tif"
-        g_g = geoid_tr.NAD832011_2010_to_ITRF2020_2020
-        g_h = path.LMSL_ITRF2020_2020
+        g_g = _geoid_tr.NAD832011_2010_to_ITRF2020_2020
+        g_h = _path.LMSL_ITRF2020_2020
     elif vd_from == "lmsl" and vd_to == "navd88":
-        h_g = path.LMSL_ITRF2020_2020
-        g_g = geoid_tr.ITRF2020_2020_to_NAD832011_2010
+        h_g = _path.LMSL_ITRF2020_2020
+        g_g = _geoid_tr.ITRF2020_2020_to_NAD832011_2010
         g_h = "us_noaa_g2018u0.tif"
 
     elif vd_from == "mllw" and vd_to == "lmsl":
-        h_g = path.MLLW_ITRF2020_2020
+        h_g = _path.MLLW_ITRF2020_2020
         g_g = None
-        g_h = path.LMSL_ITRF2020_2020
+        g_h = _path.LMSL_ITRF2020_2020
     elif vd_from == "lmsl" and vd_to == "mllw":
-        h_g = path.LMSL_ITRF2020_2020
+        h_g = _path.LMSL_ITRF2020_2020
         g_g = None
-        g_h = path.MLLW_ITRF2020_2020
+        g_h = _path.MLLW_ITRF2020_2020
 
     elif vd_from == "navd88" and vd_to == "xgeoid20b":
         h_g = "us_noaa_g2018u0.tif"
-        g_g = geoid_tr.NAD832011_to_ITRF2014
-        g_h = path.xGEOID20B
+        g_g = _geoid_tr.NAD832011_to_ITRF2014
+        g_h = _path.xGEOID20B
     elif vd_from == "xgeoid20b" and vd_to == "navd88":
-        h_g = path.xGEOID20B
-        g_g = geoid_tr.ITRF2014_to_NAD832011
+        h_g = _path.xGEOID20B
+        g_g = _geoid_tr.ITRF2014_to_NAD832011
         g_h = "us_noaa_g2018u0.tif"
 
     else:
@@ -139,7 +137,7 @@ def convert(vd_from: str,
     epoch : int [Optional]
         Default is set to None
     online : True(default) or False [Optional]
-        Needs to be set to True is geotiff files (path.py) are retrieve from the web
+        Needs to be set to True is geotiff files (_path.py) are retrieve from the web
         Can be set to False if geotiff files are stored locally (ideal for HPC compute node)
 
     Returns
@@ -149,8 +147,8 @@ def convert(vd_from: str,
 
     Notes
     -----
-    - The conversions are based on predefined geotiff files - see path.py
-    - Geoid transformations use predefined proj pipelines - see geoid_tr.py
+    - The conversions are based on predefined geotiff files - see _path.py
+    - Geoid transformations use predefined proj pipelines - see _geoid_tr.py
     - The size of lat, lon, and z must match.
     - Points outside the vertical datum conversion domain will be output as inf
     """
