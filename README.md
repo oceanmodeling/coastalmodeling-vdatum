@@ -30,7 +30,7 @@ path.xGEOID20B=f"{file_path}/xGEOID20B.tif"
 path.MLLW_ITRF2020_2020=f"{file_path}/us_noaa_nos_MLLW-ITRF2020_2020.0_nwldatum_4.7.0_20240621_.tif"
 path.LMSL_ITRF2020_2020f"{file_path}/us_noaa_nos_LMSL-ITRF2020_2020.0_nwldatum_4.7.0_20240621_.tif"
 
-x,y,z = vdatum.convert(vd_from, vd_to, lat, lon , z, online=True, epoch=None)
+x,y,z = vdatum.convert(vd_from, vd_to, lat, lon , z, online=False, epoch=None)
 ```
 
 ### Mesh Vertical Datum Conversion (SCHISM-[OCSMesh](https://github.com/noaa-ocs-modeling/OCSMesh/tree/main))
