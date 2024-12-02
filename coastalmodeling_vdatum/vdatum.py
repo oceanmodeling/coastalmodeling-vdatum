@@ -92,13 +92,13 @@ def inputs(vd_from,vd_to):
         g_h = _path.MLLW_ITRF2020_2020
 
     elif vd_from == "navd88" and vd_to == "xgeoid20b":
-        h_g = "us_noaa_g2018u0.tif"
+        h_g = _path.NAVD88_G2018
         g_g = _geoid_tr.NAD832011_to_ITRF2014
         g_h = _path.xGEOID20B
     elif vd_from == "xgeoid20b" and vd_to == "navd88":
         h_g = _path.xGEOID20B
         g_g = _geoid_tr.ITRF2014_to_NAD832011
-        g_h = "us_noaa_g2018u0.tif"
+        g_h = _path.NAVD88_G2018
 
     else:
         warnings.warn(f"Vertical datum donversion not found. \
