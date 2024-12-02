@@ -26,6 +26,7 @@ changing the pre-defined geotiff file paths to a local directory
 ```
 from coastalmodeling_vdatum import vdatum, _path
 
+_path.NAVD88_G2018=f"{PATH}/us_noaa_g2018u0.tif"
 _path.xGEOID20B=f"{PATH}/xGEOID20B.tif"
 _path.MLLW_ITRF2020_2020=f"{PATH}/us_noaa_nos_MLLW-ITRF2020_2020.0_nwldatum_4.7.0_20240621_.tif"
 _path.LMSL_ITRF2020_2020f"{PATH}/us_noaa_nos_LMSL-ITRF2020_2020.0_nwldatum_4.7.0_20240621_.tif"
