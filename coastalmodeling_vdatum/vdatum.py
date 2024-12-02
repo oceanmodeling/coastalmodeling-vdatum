@@ -47,22 +47,22 @@ def inputs(vd_from,vd_to):
     transformations given the vertical datum of origin and target vertical datum
     """
     if vd_from == "xgeoid20b" and vd_to == "mllw":
-        h_g = _path.xGEOID20B
+        h_g = _path.XGEOID20B
         g_g = _geoid_tr.ITRF2014_to_ITRF2020
         g_h = _path.MLLW_ITRF2020_2020
     elif vd_from == "mllw" and vd_to == "xgeoid20b":
         h_g = _path.MLLW_ITRF2020_2020
         g_g = _geoid_tr.ITRF2020_to_ITRF2014
-        g_h = _path.xGEOID20B
+        g_h = _path.XGEOID20B
 
     elif vd_from == "xgeoid20b" and vd_to == "lmsl":
-        h_g = _path.xGEOID20B
+        h_g = _path.XGEOID20B
         g_g = _geoid_tr.ITRF2014_to_ITRF2020
         g_h = _path.LMSL_ITRF2020_2020
     elif vd_from == "lmsl" and vd_to == "xgeoid20b":
         h_g = _path.LMSL_ITRF2020_2020
         g_g = _geoid_tr.ITRF2020_to_ITRF2014
-        g_h = _path.xGEOID20B
+        g_h = _path.XGEOID20B
 
     elif vd_from == "navd88" and vd_to == "mllw":
         h_g = _path.NAVD88_G2018
@@ -94,9 +94,9 @@ def inputs(vd_from,vd_to):
     elif vd_from == "navd88" and vd_to == "xgeoid20b":
         h_g = _path.NAVD88_G2018
         g_g = _geoid_tr.NAD832011_to_ITRF2014
-        g_h = _path.xGEOID20B
+        g_h = _path.XGEOID20B
     elif vd_from == "xgeoid20b" and vd_to == "navd88":
-        h_g = _path.xGEOID20B
+        h_g = _path.XGEOID20B
         g_g = _geoid_tr.ITRF2014_to_NAD832011
         g_h = _path.NAVD88_G2018
 
