@@ -65,22 +65,22 @@ def inputs(vd_from,vd_to):
         g_h = _path.xGEOID20B
 
     elif vd_from == "navd88" and vd_to == "mllw":
-        h_g = "us_noaa_g2018u0.tif"
+        h_g = _path.NAVD88_G2018
         g_g = _geoid_tr.NAD832011_2010_to_ITRF2020_2020
         g_h = _path.MLLW_ITRF2020_2020
     elif vd_from == "mllw" and vd_to == "navd88":
         h_g = _path.MLLW_ITRF2020_2020
         g_g = _geoid_tr.ITRF2020_2020_to_NAD832011_2010
-        g_h = "us_noaa_g2018u0.tif"
+        g_h = _path.NAVD88_G2018
 
     elif vd_from == "navd88" and vd_to == "lmsl":
-        h_g = "us_noaa_g2018u0.tif"
+        h_g = _path.NAVD88_G2018
         g_g = _geoid_tr.NAD832011_2010_to_ITRF2020_2020
         g_h = _path.LMSL_ITRF2020_2020
     elif vd_from == "lmsl" and vd_to == "navd88":
         h_g = _path.LMSL_ITRF2020_2020
         g_g = _geoid_tr.ITRF2020_2020_to_NAD832011_2010
-        g_h = "us_noaa_g2018u0.tif"
+        g_h = _path.NAVD88_G2018
 
     elif vd_from == "mllw" and vd_to == "lmsl":
         h_g = _path.MLLW_ITRF2020_2020
