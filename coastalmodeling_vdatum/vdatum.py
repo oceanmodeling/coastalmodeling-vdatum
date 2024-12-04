@@ -33,7 +33,10 @@ def build_pipe(lat, lon ,z ,h_g , g_g, g_h, online, epoch=None):
 
     tr = pyproj.Transformer.from_pipeline(pipeline).transform
     if epoch is not None:
-        t=[epoch for l in lat]
+        if isinstance(lat,(int,float)):
+            t=epoch
+        else:
+            t=[epoch for l in lat]
         clat,clon,cz,ct = tr(lat,lon,z,t)
     else:
         clat,clon,cz = tr(lat,lon,z)
