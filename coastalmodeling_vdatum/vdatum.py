@@ -115,7 +115,7 @@ def convert(vd_from: str,
             z: Union[int, float, list, np.array],
             epoch: int=None,
             online = True) -> Union[list, np.array]:
-    """Converts vertical datum (main function)
+    """Converts vertical datum (main function): "xgeoid20b","navd88","mllw","lmsl"
 
     Given the vertical datum of origin, the target vertical datum, 
     xyz and epoch (optional), output the xyz for the targer vertical datum.
@@ -152,6 +152,10 @@ def convert(vd_from: str,
     - The size of lat, lon, and z must match.
     - Points outside the vertical datum conversion domain will be output as inf
     """
+
+    if vd_from and vd_to not in ["xgeoid20b","navd88","mllw","lmsl"]:
+        raise ValueError(f"{vd_from} or {vd_to} is not a valid. \
+        Please use one of the following: 'xgeoid20b','navd88','mllw','lmsl'")
 
     h_g,g_g,g_h=inputs(vd_from,vd_to)
     clat,clon,cz=build_pipe(lat, lon ,z ,h_g , g_g, g_h, online, epoch=epoch)
