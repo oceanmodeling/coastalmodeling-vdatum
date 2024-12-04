@@ -43,7 +43,8 @@ import numpy as np
 
 gd = ocsmesh.Mesh.open(HGRID_PATH, crs=4326)
 
-x,y,z = vdatum.convert(vd_from, vd_to, gd.vert2['coord'][:, -1], gd.vert2['coord'][:, 0] , gd.value, online=True, epoch=None)
+# coastalmodeling-vdatum expects positive z overland and negative z under water, thus multiple gd.value by -1
+x,y,z = vdatum.convert(vd_from, vd_to, gd.vert2['coord'][:, -1], gd.vert2['coord'][:, 0], gd.value*-1, online=True, epoch=None)
 z[np.isinf(z)] = gd.value[np.isinf(z)]
 
 mesh_msht = ocsmesh.utils.msht_from_numpy(
@@ -66,9 +67,12 @@ from pylib import schism_grid as read_hgrid
 
 gd = read_hgrid(HGRID_PATH)
 
-x,y,z = vdatum.convert(vd_from, vd_to, gd.y, gd.x , gd.z, online=True, epoch=None)
+# coastalmodeling-vdatum expects positive z overland and negative z under water, thus multiple gd.value by -1
+x,y,z = vdatum.convert(vd_from, vd_to, gd.y, gd.x , gd.z*-1, online=True, epoch=None)
 z[np.isinf(z)] = gd.z[np.isinf(z)]
-gd.dp=z
+
+# multiply it back before writting the .gr3 file
+gd.dp=z*-1
 
 gd.write_hgrid({PATH_OUT}/mesh.gr3')
 ```
