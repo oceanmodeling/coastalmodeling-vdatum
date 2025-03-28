@@ -57,6 +57,24 @@ def inputs(vd_from,vd_to):
         h_g = _path.MLLW_ITRF2020_2020
         g_g = _geoid_tr.ITRF2020_to_ITRF2014
         g_h = _path.XGEOID20B
+        
+    elif vd_from == "xgeoid20b" and vd_to == "mlw":
+        h_g = _path.XGEOID20B
+        g_g = _geoid_tr.ITRF2014_to_ITRF2020
+        g_h = _path.MLW_ITRF2020_2020
+    elif vd_from == "mlw" and vd_to == "xgeoid20b":
+        h_g = _path.MLW_ITRF2020_2020
+        g_g = _geoid_tr.ITRF2020_to_ITRF2014
+        g_h = _path.XGEOID20B
+        
+    elif vd_from == "xgeoid20b" and vd_to == "mhw":
+        h_g = _path.XGEOID20B
+        g_g = _geoid_tr.ITRF2014_to_ITRF2020
+        g_h = _path.MHW_ITRF2020_2020
+    elif vd_from == "mhw" and vd_to == "xgeoid20b":
+        h_g = _path.MHW_ITRF2020_2020
+        g_g = _geoid_tr.ITRF2020_to_ITRF2014
+        g_h = _path.XGEOID20B
 
     elif vd_from == "xgeoid20b" and vd_to == "lmsl":
         h_g = _path.XGEOID20B
@@ -73,6 +91,24 @@ def inputs(vd_from,vd_to):
         g_h = _path.MLLW_ITRF2020_2020
     elif vd_from == "mllw" and vd_to == "navd88":
         h_g = _path.MLLW_ITRF2020_2020
+        g_g = _geoid_tr.ITRF2020_2020_to_NAD832011_2010
+        g_h = _path.NAVD88_G2018
+
+    elif vd_from == "navd88" and vd_to == "mlw":
+        h_g = _path.NAVD88_G2018
+        g_g = _geoid_tr.NAD832011_2010_to_ITRF2020_2020
+        g_h = _path.MLW_ITRF2020_2020
+    elif vd_from == "mlw" and vd_to == "navd88":
+        h_g = _path.MLW_ITRF2020_2020
+        g_g = _geoid_tr.ITRF2020_2020_to_NAD832011_2010
+        g_h = _path.NAVD88_G2018
+
+    elif vd_from == "navd88" and vd_to == "mhw":
+        h_g = _path.NAVD88_G2018
+        g_g = _geoid_tr.NAD832011_2010_to_ITRF2020_2020
+        g_h = _path.MHW_ITRF2020_2020
+    elif vd_from == "mhw" and vd_to == "navd88":
+        h_g = _path.MHW_ITRF2020_2020
         g_g = _geoid_tr.ITRF2020_2020_to_NAD832011_2010
         g_h = _path.NAVD88_G2018
 
@@ -93,6 +129,42 @@ def inputs(vd_from,vd_to):
         h_g = _path.LMSL_ITRF2020_2020
         g_g = None
         g_h = _path.MLLW_ITRF2020_2020
+
+    elif vd_from == "mllw" and vd_to == "mlw":
+        h_g = _path.MLLW_ITRF2020_2020
+        g_g = None
+        g_h = _path.MLW_ITRF2020_2020
+    elif vd_from == "mlw" and vd_to == "mllw":
+        h_g = _path.MLW_ITRF2020_2020
+        g_g = None
+        g_h = _path.MLLW_ITRF2020_2020
+
+    elif vd_from == "mllw" and vd_to == "mhw":
+        h_g = _path.MLLW_ITRF2020_2020
+        g_g = None
+        g_h = _path.MHW_ITRF2020_2020
+    elif vd_from == "mhw" and vd_to == "mllw":
+        h_g = _path.MHW_ITRF2020_2020
+        g_g = None
+        g_h = _path.MLLW_ITRF2020_2020
+
+    elif vd_from == "mlw" and vd_to == "lmsl":
+        h_g = _path.MLW_ITRF2020_2020
+        g_g = None
+        g_h = _path.LMSL_ITRF2020_2020
+    elif vd_from == "lmsl" and vd_to == "mlw":
+        h_g = _path.LMSL_ITRF2020_2020
+        g_g = None
+        g_h = _path.MLW_ITRF2020_2020
+
+    elif vd_from == "mhw" and vd_to == "lmsl":
+        h_g = _path.MHW_ITRF2020_2020
+        g_g = None
+        g_h = _path.LMSL_ITRF2020_2020
+    elif vd_from == "lmsl" and vd_to == "mhw":
+        h_g = _path.LMSL_ITRF2020_2020
+        g_g = None
+        g_h = _path.MHW_ITRF2020_2020
 
     elif vd_from == "navd88" and vd_to == "xgeoid20b":
         h_g = _path.NAVD88_G2018
@@ -139,9 +211,36 @@ def inputs(vd_from,vd_to):
         g_g = None
         g_h = _path.MLLW_ITRF2020_2020
 
+    elif vd_from == "mlw" and vd_to == "sgeoid2022":
+        h_g = _path.MLW_ITRF2020_2020
+        g_g = None
+        g_h = _path.SGEOID2022
+    elif vd_from == "sgeoid2022" and vd_to == "mlw":
+        h_g = _path.SGEOID2022
+        g_g = None
+        g_h = _path.MLW_ITRF2020_2020
+
+    elif vd_from == "mhw" and vd_to == "sgeoid2022":
+        h_g = _path.MHW_ITRF2020_2020
+        g_g = None
+        g_h = _path.SGEOID2022
+    elif vd_from == "sgeoid2022" and vd_to == "mhw":
+        h_g = _path.SGEOID2022
+        g_g = None
+        g_h = _path.MHW_ITRF2020_2020
+
+    elif vd_from == "mhw" and vd_to == "mlw":
+        h_g = _path.MHW_ITRF2020_2020
+        g_g = None
+        g_h = _path.MLW_ITRF2020_2020
+    elif vd_from == "mlw" and vd_to == "mhw":
+        h_g = _path.MLW_ITRF2020_2020
+        g_g = None
+        g_h = _path.MHW_ITRF2020_2020
+
     else:
         warnings.warn(f"Vertical datum donversion not found. \
-Datums available:'xgeoid20b','navd88','mllw','lmsl', 'sgeoid2022' \
+Datums available:'xgeoid20b','navd88','mllw','mlw','mhw','lmsl', 'sgeoid2022' \
 datum conversion requested: from {vd_from} to {vd_to}")
 
     return h_g,g_g,g_h
@@ -154,7 +253,7 @@ def convert(vd_from: str,
             z: Union[int, float, list, np.array],
             epoch: int=None,
             online = True) -> Union[list, np.array]:
-    """Converts vertical datum (main function): "xgeoid20b","navd88","mllw","lmsl","sgeoid2022"
+    """Converts vertical datum (main function): "xgeoid20b","navd88","mllw","mlw","mhw","lmsl","sgeoid2022"
 
     Given the vertical datum of origin, the target vertical datum, 
     xyz and epoch (optional), output the xyz for the targer vertical datum.
@@ -163,10 +262,10 @@ def convert(vd_from: str,
     ----------
     vd_from : str
         The name of the vertical datum you want to go from, any of these:
-        "xgeoid20b","navd88","mllw","lmsl","sgeoid2022"
+        "xgeoid20b","navd88","mllw","mlw","mhw""lmsl","sgeoid2022"
     vd_to : str
         The name of the vertical datum you want to go to, any of these:
-        "xgeoid20b","navd88","mllw","lmsl","sgeoid2022"
+        "xgeoid20b","navd88","mllw","mlw","mhw","lmsl","sgeoid2022"
     lat : int or float or list or np.array
         Latitudes, e.g. [30,26,27.5] or 28.8
     lon : int or float or list or np.array
@@ -192,9 +291,9 @@ def convert(vd_from: str,
     - Points outside the vertical datum conversion domain will be output as inf
     """
 
-    if vd_from and vd_to not in ["xgeoid20b","navd88","mllw","lmsl","sgeoid2022"]:
+    if vd_from and vd_to not in ["xgeoid20b","navd88","mllw","mlw","mhw","lmsl","sgeoid2022"]:
         raise ValueError(f"{vd_from} or {vd_to} is not a valid. \
-        Please use one of the following: 'xgeoid20b','navd88','mllw','lmsl','sgeoid2022'")
+        Please use one of the following: 'xgeoid20b','navd88','mllw','mlw','mhw','lmsl','sgeoid2022'")
 
     h_g,g_g,g_h=inputs(vd_from,vd_to)
     clat,clon,cz=build_pipe(lat, lon ,z ,h_g , g_g, g_h, online, epoch=epoch)
