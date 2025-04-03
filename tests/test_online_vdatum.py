@@ -21,7 +21,8 @@ def main():
     tests = [
         {'vfrom':'lmsl', 'vto':'mlw', 'lat':30.197168, 'lon':-87.842459, 'result':0.183},
         {'vfrom':'lmsl', 'vto':'mllw', 'lat':30.197168, 'lon':-87.842459, 'result':0.198},
-        {'vfrom':'lmsl', 'vto':'mhw', 'lat':30.197168, 'lon':-87.842459, 'result':-0.187}
+        {'vfrom':'lmsl', 'vto':'mhw', 'lat':30.197168, 'lon':-87.842459, 'result':-0.187},
+        {'vfrom':'lmsl', 'vto':'lmsl', 'lat':30.197168, 'lon':-87.842459, 'result':0.0}
     ]
     
     for t in tests:

@@ -295,8 +295,12 @@ def convert(vd_from: str,
         raise ValueError(f"{vd_from} or {vd_to} is not a valid. \
         Please use one of the following: 'xgeoid20b','navd88','mllw','mlw','mhw','lmsl','sgeoid2022'")
 
-    h_g,g_g,g_h=inputs(vd_from,vd_to)
-    clat,clon,cz=build_pipe(lat, lon ,z ,h_g , g_g, g_h, online, epoch=epoch)
+    if vd_from == vd_to:
+        _logger.info(f'Identity datum conversion from {vd_from} to {vd_to} requested. Returning input values.')
+        clat, clon, cz = lat, lon, z
+    else:
+        h_g,g_g,g_h=inputs(vd_from,vd_to)
+        clat,clon,cz=build_pipe(lat, lon ,z ,h_g , g_g, g_h, online, epoch=epoch)
 
     return clat,clon,cz
 
