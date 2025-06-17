@@ -1,7 +1,8 @@
 # coastalmodeling-vdatum
 To support costal modelers with vertical datum conversion.\
 Conversions between the following datums are suported: 
-__xgeoid20b__, __navd88__, __mllw__, __mlw__,__mhw__, and __lmsl__
+__xgeoid20b__, __navd88__, __mllw__, __mlw__, __mhhw__, __mhw__, __lmsl__, __igld85__, and __igld85__
+
 
 ## Installation 
 ```
