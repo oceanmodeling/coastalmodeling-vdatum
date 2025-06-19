@@ -49,7 +49,12 @@ def inputs(vd_from,vd_to):
     Calls the respective (height - geoid), (geoid to geoid), and (geoid - height)
     transformations given the vertical datum of origin and target vertical datum
     """
-    ## ITRF2014_to_ITRF2020_2020
+
+    #########################################################
+    #         ITRF2014_to_ITRF2020_2020
+    # Includes conversions
+    # xgeoid20b <-> [mllw, mlw, mhw, mhhw, lmsl, igld85, lwd, sgeoid2022 (commented out)]
+    #########################################################
     if vd_from == "xgeoid20b" and vd_to == "mllw":
         h_g = _path.XGEOID20B
         g_g = _geoid_tr.ITRF2014_to_ITRF2020
@@ -122,7 +127,11 @@ def inputs(vd_from,vd_to):
     #     g_g = _geoid_tr.ITRF2020_to_ITRF2014
     #     g_h = _path.XGEOID20B
 
-    ## NAD832011_2010_to_ITRF2020_2020
+    #########################################################
+    #         NAD832011_2010_to_ITRF2020_2020
+    # Includes conversions
+    # navd88 <-> [mllw, mlw, mhw, mhhw, lmsl, igld85, lwd, sgeoid2022 (commented out)]
+    #########################################################
     elif vd_from == "navd88" and vd_to == "mllw":
         h_g = _path.NAVD88_G2018
         g_g = _geoid_tr.NAD832011_2010_to_ITRF2020_2020
@@ -196,10 +205,15 @@ def inputs(vd_from,vd_to):
     #     g_h = _path.NAVD88_G2018
 
 
-    ## ITRF2020 
-    ### There is no overlap between tidal datums and Great Lake datums
-
-    #### mllw ---> [lmsl, mlw, mhw, mhhw, sgeoid2022]
+    #########################################################
+    #         ITRF2020_2020
+    # Includes tidal conversions 
+    # mllw <-> [lmsl, mlw, mhw, mhhw, sgeoid2022 (commented out)]
+    # mlw <-> [lmsl, mhw, mhhw, sgeoid2022 (commented out)]
+    # mhw <-> [lmsl, mhhw, sgeoid2022 (commented out)]
+    # mhhw <-> [lmsl, sgeoid2022 (commented out)]
+    # There is no overlap between tidal datums and Great Lake datums
+    #########################################################
     elif vd_from == "mllw" and vd_to == "lmsl":
         h_g = _path.MLLW_ITRF2020_2020
         g_g = None
@@ -339,7 +353,11 @@ def inputs(vd_from,vd_to):
     #     g_g = None
     #     g_h = _path.SGEOID2022
 
-
+    #########################################################
+    #         NAD832011_to_ITRF2014
+    # Includes conversions 
+    # navd88 <-> [xgeoid20b]
+    #########################################################
     ## NAD832011_to_ITRF2014
     elif vd_from == "navd88" and vd_to == "xgeoid20b":
         h_g = _path.NAVD88_G2018
