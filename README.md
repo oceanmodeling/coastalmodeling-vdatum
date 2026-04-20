@@ -78,3 +78,5 @@ gd.dp=z*-1
 gd.write_hgrid({PATH_OUT}/mesh.gr3')
 ```
 
+### Citation:
+Cassalho, F., Riley, J., Moghimi, S., Reeves Eyre, J., Mani, S., Seroka, G., Peeri, S., Myers, E., Allen, C. (2026) Coastal Modeling Vertical Datum Package. NOAA technical memorandum NOS CS; 62. https://doi.org/10.25923/tdec-td80
