@@ -17,7 +17,8 @@ dependencies = [
     "xarray",
     "scipy",
     "requests",
-    "h5netcdf"
+    "h5netcdf",
+    "pyproj"
 ]
 
 [project.urls]
