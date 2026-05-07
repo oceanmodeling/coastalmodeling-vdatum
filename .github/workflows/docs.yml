@@ -12,7 +12,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  build_docs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -47,7 +47,7 @@ jobs:
           path: ./site
 
   deploy:
-    needs: build
+    needs: [build, build_docs]
     runs-on: ubuntu-latest
     permissions:
       pages: write
