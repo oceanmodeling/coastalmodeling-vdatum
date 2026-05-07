@@ -1,22 +1,11 @@
 # CoastalModeling-VDatum
 
-.. image:: https://badge.fury.io/py/coastalmodeling-vdatum.svg
-    :target: https://badge.fury.io/py/coastalmodeling-vdatum
-
-.. image:: https://github.com/oceanmodeling/coastalmodeling-vdatum/actions/workflows/run-tests.yml/badge.svg
-    :target: https://github.com/oceanmodeling/coastalmodeling-vdatum/actions/workflows/run-tests.yml
-
-.. image:: https://github.com/oceanmodeling/coastalmodeling-vdatum/actions/workflows/docs.yml/badge.svg
-    :target: https://oceanmodeling.github.io/coastalmodeling-vdatum/
-
-.. image:: https://codecov.io/gh/oceanmodeling/coastalmodeling-vdatum/branch/main/graph/badge.svg
-    :target: https://codecov.io/gh/oceanmodeling/coastalmodeling-vdatum
-
-.. image:: https://img.shields.io/badge/License-CC0%201.0-lightgrey.svg
-    :target: http://creativecommons.org/publicdomain/zero/1.0/
-
-.. image:: https://img.shields.io/badge/pylint-?.??-blue
-    :target: https://github.com/oceanmodeling/coastalmodeling-vdatum/actions/workflows/lint.yml
+[![PyPI version](https://badge.fury.io/py/coastalmodeling-vdatum.svg)](https://badge.fury.io/py/coastalmodeling-vdatum)
+[![Build Status](https://github.com/oceanmodeling/coastalmodeling-vdatum/actions/workflows/run-tests.yml/badge.svg)](https://github.com/oceanmodeling/coastalmodeling-vdatum/actions/workflows/run-tests.yml)
+[![Documentation Status](https://github.com/oceanmodeling/coastalmodeling-vdatum/actions/workflows/docs.yml/badge.svg)](https://oceanmodeling.github.io/coastalmodeling-vdatum/)
+[![codecov](https://codecov.io/gh/oceanmodeling/coastalmodeling-vdatum/branch/main/graph/badge.svg)](https://codecov.io/gh/oceanmodeling/coastalmodeling-vdatum)
+[![License: CC0-1.0](https://img.shields.io/badge/License-CC0%201.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0/)
+[![Pylint Score](https://img.shields.io/badge/pylint-?.??-blue)](https://github.com/oceanmodeling/coastalmodeling-vdatum/actions/workflows/lint.yml)
 
 `coastalmodeling-vdatum` is a Python package designed to support coastal modelers with vertical datum conversions.
 
