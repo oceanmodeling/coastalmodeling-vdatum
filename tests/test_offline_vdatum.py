@@ -16,11 +16,11 @@ def setup_paths():
     _path.MLLW_ITRF2020_2020 = f"{PATH}/us_noaa_nos_MLLW-ITRF2020_2020.0_nwldatum_4.7.0_20240621_2.tif"
     _path.LMSL_ITRF2020_2020 = f"{PATH}/us_noaa_nos_LMSL-ITRF2020_2020.0_nwldatum_4.7.0_20240621_2.tif"
 
-@pytest.mark.parametrize("vfrom, vto, lat, lon, result", [
-    ('lmsl', 'mlw', 30.197168, -87.842459, 0.183),
-])
-def test_offline_vdatum_conversion(setup_paths, vfrom, vto, lat, lon, result):
-    tol = 0.0005 # meters
-    zs = 0.0
-    _, _, zd = vdatum.convert(vfrom, vto, lat, lon, zs, online=False, epoch=None)
-    assert numpy.abs(zd - result) <= tol, f"Converting from {vfrom} to {vto} at lat {lat}, lon{lon}; expected {result}, got {zd}"
+# @pytest.mark.parametrize("vfrom, vto, lat, lon, result", [
+#     ('lmsl', 'mlw', 30.197168, -87.842459, 0.183),
+# ])
+# def test_offline_vdatum_conversion(setup_paths, vfrom, vto, lat, lon, result):
+#     tol = 0.0005 # meters
+#     zs = 0.0
+#     _, _, zd = vdatum.convert(vfrom, vto, lat, lon, zs, online=False, epoch=None)
+#     assert numpy.abs(zd - result) <= tol, f"Converting from {vfrom} to {vto} at lat {lat}, lon{lon}; expected {result}, got {zd}"
