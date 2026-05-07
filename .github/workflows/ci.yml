@@ -29,12 +29,12 @@ jobs:
         run: pylint coastalmodeling_vdatum
 
       - name: Pylint Badge
-        uses: pylint-action/pylint-badge@v1
+        uses: wramner/pylint-github-action@v1
         with:
           path: pylint-badge.svg
 
       - name: Upload Pylint Badge
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: pylint-badge
           path: pylint-badge.svg
