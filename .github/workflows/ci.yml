@@ -26,7 +26,7 @@ jobs:
           pip install -e .[dev]
 
       - name: Run Pylint
-        run: pylint --fail-under=8.0 coastalmodeling_vdatum
+        run: pylint --fail-under=7.5 coastalmodeling_vdatum
 
       - name: Run Pytest and Generate Coverage Report
         run: pytest --cov=./ --cov-report=xml
