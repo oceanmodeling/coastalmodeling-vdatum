@@ -1,0 +1,46 @@
+site_name: coastalmodeling-vdatum
+site_description: "Vertical Datum Conversion for Coastal Modelers"
+site_author: "NOAA OCS"
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: "indigo"
+      accent: "indigo"
+    - scheme: slate
+      primary: "blue"
+      accent: "blue"
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/oceanmodeling/coastalmodeling-vdatum
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/coastalmodeling-vdatum/
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_root_heading: true
+            show_source: false
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Quick Start: quick-start.md
+  - API Reference:
+    - vdatum: vdatum.md

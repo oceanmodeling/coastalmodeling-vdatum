@@ -1,3 +1,38 @@
 [build-system]
-requires = ["setuptools>=45", "wheel"]
+requires = ["setuptools>=45", "wheel", "setuptools_scm"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "coastalmodeling-vdatum"
+dynamic = ["version"]
+description = "To support costal modelers with vertical datum conversion."
+authors = [
+    { name = "Felicio Cassalho", email = "felicio.cassalho@noaa.gov" }
+]
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE.txt" }
+dependencies = [
+    "numpy",
+    "xarray",
+    "scipy",
+    "requests",
+    "h5netcdf"
+]
+
+[project.urls]
+Homepage = "https://github.com/oceanmodeling/coastalmodeling-vdatum"
+Repository = "https://github.com/oceanmodeling/coastalmodeling-vdatum"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pylint",
+    "mkdocs-material",
+    "mkdocstrings[python]",
+    "pytest-cov"
+]
+
+[tool.setuptools_scm]
+write_to = "coastalmodeling_vdatum/_version.py"
+local_scheme = "no-local-version"
