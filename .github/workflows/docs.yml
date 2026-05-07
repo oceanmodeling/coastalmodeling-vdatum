@@ -33,14 +33,6 @@ jobs:
       - name: Build MkDocs site
         run: mkdocs build
 
-      - name: Download Pylint Badge
-        uses: actions/download-artifact@v4
-        with:
-          name: pylint-badge
-
-      - name: Move Pylint Badge
-        run: mv pylint-badge.svg site/
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:

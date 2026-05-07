@@ -26,18 +26,7 @@ jobs:
           pip install -e .[dev]
 
       - name: Run Pylint
-        run: pylint coastalmodeling_vdatum
-
-      - name: Pylint Badge
-        uses: wramner/pylint-github-action@v1
-        with:
-          path: pylint-badge.svg
-
-      - name: Upload Pylint Badge
-        uses: actions/upload-artifact@v4
-        with:
-          name: pylint-badge
-          path: pylint-badge.svg
+        run: pylint --fail-under=8.0 coastalmodeling_vdatum
 
       - name: Run Pytest and Generate Coverage Report
         run: pytest --cov=./ --cov-report=xml
