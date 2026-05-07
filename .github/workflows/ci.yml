@@ -28,6 +28,17 @@ jobs:
       - name: Run Pylint
         run: pylint coastalmodeling_vdatum
 
+      - name: Pylint Badge
+        uses: pylint-action/pylint-badge@v1
+        with:
+          path: pylint-badge.svg
+
+      - name: Upload Pylint Badge
+        uses: actions/upload-artifact@v3
+        with:
+          name: pylint-badge
+          path: pylint-badge.svg
+
       - name: Run Pytest and Generate Coverage Report
         run: pytest --cov=./ --cov-report=xml
 
