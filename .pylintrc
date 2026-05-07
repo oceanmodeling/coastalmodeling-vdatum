@@ -1,0 +1,26 @@
+# .pylintrc - Configuration for Pylint
+
+[MAIN]
+# A comma-separated list of plugin modules to load.
+load-plugins=
+
+[MESSAGES CONTROL]
+# Disable specific messages by their symbolic name.
+# docstring-first-line: Good practice, but can be noisy initially.
+# missing-module-docstring: Disabling for now to focus on code logic.
+# missing-class-docstring: Your classes have good docstrings.
+# missing-function-docstring: Your functions have good docstrings.
+# trailing-whitespace: This is better handled by a code formatter like black or ruff.
+disable=
+    missing-module-docstring,
+    trailing-whitespace
+
+[REPORTS]
+# Set the failure threshold for the score.
+# If the score is below this value, Pylint will exit with an error code.
+# This is what CI systems use to fail a build.
+fail-under=7.5
+
+[FORMAT]
+# Set the expected maximum line length.
+max-line-length=100

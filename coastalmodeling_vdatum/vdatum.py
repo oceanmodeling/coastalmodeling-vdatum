@@ -1,4 +1,6 @@
-#!/usr/bin/env python3
+"""
+This module provides functions for converting vertical datums.
+"""
 from typing import Union
 import logging
 import warnings
@@ -10,15 +12,41 @@ from coastalmodeling_vdatum import _geoid_tr, _path
 
 _logger = logging.getLogger(__name__)
 
-def build_pipe(lat, lon ,z ,h_g , g_g, g_h, online, epoch=None):
+
+def build_pipe(lat, lon, z, h_g, g_g, g_h, online, epoch=None):
     """
-    Basic pipeline that is common to all transfomations.
-    h_g: height - geoid
-    g_g: geiod to geiod
-    g_h: geoid - height
+    Builds and executes a pyproj pipeline for vertical datum transformation.
+
+    This is a low-level function that constructs a PROJ pipeline string
+    and uses it to transform coordinates.
+
+    Parameters
+    ----------
+    lat : array_like
+        Input latitudes.
+    lon : array_like
+        Input longitudes.
+    z : array_like
+        Input vertical values.
+    h_g : str
+        Path or URL to the height-to-geoid grid.
+    g_g : str
+        PROJ pipeline string for geoid-to-geoid transformation.
+    g_h : str
+        Path or URL to the geoid-to-height grid.
+    online : bool
+        If True, enables network access for pyproj.
+    epoch : int, optional
+        Epoch for time-dependent transformations, by default None.
+
+    Returns
+    -------
+    tuple
+        A tuple containing the transformed latitudes, longitudes, and
+        vertical values.
     """
 
-    pipeline=f"""+proj=pipeline
+    pipeline = f"""+proj=pipeline
   +step +proj=axisswap +order=2,1
   +step +proj=unitconvert +xy_in=deg +z_in=m +xy_out=rad +z_out=m
   +step +proj=vgridshift +grids={h_g} +multiplier=1
@@ -28,26 +56,42 @@ def build_pipe(lat, lon ,z ,h_g , g_g, g_h, online, epoch=None):
   +step +proj=axisswap +order=2,1
     """
 
-    if online is True:
+    if online:
         pyproj.network.set_network_enabled(active=True)
 
     tr = pyproj.Transformer.from_pipeline(pipeline).transform
     if epoch is not None:
-        if isinstance(lat,(int,float)):
-            t=epoch
+        if isinstance(lat, (int, float)):
+            t = epoch
         else:
-            t=[epoch for l in lat]
-        clat,clon,cz,ct = tr(lat,lon,z,t)
+            t = [epoch for l in lat]
+        clat, clon, cz, ct = tr(lat, lon, z, t)
     else:
-        clat,clon,cz = tr(lat,lon,z)
+        clat, clon, cz = tr(lat, lon, z)
 
-    return clat,clon,cz
+    return clat, clon, cz
 
 
-def inputs(vd_from,vd_to):
+def inputs(vd_from, vd_to):
     """
-    Calls the respective (height - geoid), (geoid to geoid), and (geoid - height)
-    transformations given the vertical datum of origin and target vertical datum
+    Selects the appropriate transformation grids and pipelines.
+
+    Based on the source and target vertical datums, this function
+    returns the paths to the required grid files and the geoid-to-geoid
+    transformation pipeline string.
+
+    Parameters
+    ----------
+    vd_from : str
+        Source vertical datum.
+    vd_to : str
+        Target vertical datum.
+
+    Returns
+    -------
+    tuple
+        A tuple containing the height-to-geoid grid, the geoid-to-geoid
+        pipeline, and the geoid-to-height grid.
     """
 
     #########################################################
@@ -63,7 +107,7 @@ def inputs(vd_from,vd_to):
         h_g = _path.MLLW_ITRF2020_2020
         g_g = _geoid_tr.ITRF2020_to_ITRF2014
         g_h = _path.XGEOID20B
-        
+
     elif vd_from == "xgeoid20b" and vd_to == "mlw":
         h_g = _path.XGEOID20B
         g_g = _geoid_tr.ITRF2014_to_ITRF2020
@@ -81,7 +125,7 @@ def inputs(vd_from,vd_to):
         h_g = _path.MHHW_ITRF2020_2020
         g_g = _geoid_tr.ITRF2020_to_ITRF2014
         g_h = _path.XGEOID20B
-        
+
     elif vd_from == "xgeoid20b" and vd_to == "mhw":
         h_g = _path.XGEOID20B
         g_g = _geoid_tr.ITRF2014_to_ITRF2020
@@ -207,7 +251,7 @@ def inputs(vd_from,vd_to):
 
     #########################################################
     #         ITRF2020_2020
-    # Includes tidal conversions 
+    # Includes tidal conversions
     # mllw <-> [lmsl, mlw, mhw, mhhw, sgeoid2022 (commented out)]
     # mlw <-> [lmsl, mhw, mhhw, sgeoid2022 (commented out)]
     # mhw <-> [lmsl, mhhw, sgeoid2022 (commented out)]
@@ -355,7 +399,7 @@ def inputs(vd_from,vd_to):
 
     #########################################################
     #         NAD832011_to_ITRF2014
-    # Includes conversions 
+    # Includes conversions
     # navd88 <-> [xgeoid20b]
     #########################################################
     ## NAD832011_to_ITRF2014
@@ -374,7 +418,7 @@ Datums available:'xgeoid20b','navd88','mllw','mlw','mhhw','mhw','lmsl','igld85',
 datum conversion requested: from {vd_from} to {vd_to}\
 Note: there is no overlap between the Great Lakes and the Tidal Datums: Conversion not possible!")
 
-    return h_g,g_g,g_h
+    return h_g, g_g, g_h
 
 
 def convert(vd_from: str,
@@ -382,48 +426,53 @@ def convert(vd_from: str,
             lat: Union[int, float, list, np.array],
             lon: Union[int, float, list, np.array],
             z: Union[int, float, list, np.array],
-            epoch: int=None,
-            online = True) -> Union[list, np.array]:
-    """Converts vertical datum (main function):
-       'xgeoid20b','navd88','mllw','mlw','mhhw','mhw','lmsl','igld85','lwd'
+            epoch: int = None,
+            online=True) -> Union[list, np.array]:
+    """Converts vertical datum.
 
-    Given the vertical datum of origin, the target vertical datum, 
-    xyz and epoch (optional), output the xyz for the targer vertical datum.
+    This is the main function for converting between vertical datums.
+    It supports 'xgeoid20b', 'navd88', 'mllw', 'mlw', 'mhhw', 'mhw',
+    'lmsl', 'igld85', and 'lwd'.
 
     Parameters
     ----------
     vd_from : str
-        The name of the vertical datum you want to go from, any of these:
-        'xgeoid20b','navd88','mllw','mlw','mhhw','mhw','lmsl','igld85','lwd'
+        Source vertical datum. One of: 'xgeoid20b', 'navd88', 'mllw',
+        'mlw', 'mhhw', 'mhw', 'lmsl', 'igld85', 'lwd'.
     vd_to : str
-        The name of the vertical datum you want to go to, any of these:
-        'xgeoid20b','navd88','mllw','mlw','mhhw','mhw','lmsl','igld85','lwd'
-    lat : int or float or list or np.array
-        Latitudes, e.g. [30,26,27.5] or 28.8
-    lon : int or float or list or np.array
-        Longitudes, e.g. [-80,-75,-77.5] or 78.8
-    z : int or float or list or np.array
-        Longitudes, e.g. [0,0,.1] or 10
-    epoch : int [Optional]
-        Default is set to None
-    online : True(default) or False [Optional]
-        Needs to be set to True is geotiff files (_path.py) are retrieve from the web
-        Can be set to False if geotiff files are stored locally (ideal for HPC compute node)
+        Target vertical datum. One of: 'xgeoid20b', 'navd88', 'mllw',
+        'mlw', 'mhhw', 'mhw', 'lmsl', 'igld85', 'lwd'.
+    lat : array_like
+        Input latitudes.
+    lon : array_like
+        Input longitudes.
+    z : array_like
+        Input vertical values.
+    epoch : int, optional
+        Epoch for time-dependent transformations, by default None.
+    online : bool, optional
+        If True (default), enables network access for pyproj to fetch
+        grid files. If False, assumes grid files are available locally.
 
     Returns
     -------
-    Lists
-        Returns 3 lists (lat, lon, and z)
+    tuple
+        A tuple containing the transformed latitudes, longitudes, and
+        vertical values.
+
+    Raises
+    ------
+    ValueError
+        If `vd_from` or `vd_to` are not valid datums.
 
     Notes
     -----
-    - The conversions are based on predefined geotiff files - see _path.py
-    - Geoid transformations use predefined proj pipelines - see _geoid_tr.py
     - The size of lat, lon, and z must match.
-    - Points outside the vertical datum conversion domain will be output as inf
+    - Points outside the vertical datum conversion domain will be
+      returned as `inf`.
     """
 
-    if vd_from and vd_to not in ['xgeoid20b','navd88','mllw','mlw','mhhw','mhw','lmsl','igld85','lwd']:
+    if vd_from and vd_to not in ['xgeoid20b', 'navd88', 'mllw', 'mlw', 'mhhw', 'mhw', 'lmsl', 'igld85', 'lwd']:
         raise ValueError(f"{vd_from} or {vd_to} is not a valid. \
         Please use one of the following: 'xgeoid20b','navd88','mllw','mlw','mhhw','mhw','lmsl','igld85','lwd'")
 
@@ -431,12 +480,7 @@ def convert(vd_from: str,
         _logger.info(f'Identity datum conversion from {vd_from} to {vd_to} requested. Returning input values.')
         clat, clon, cz = lat, lon, z
     else:
-        h_g,g_g,g_h=inputs(vd_from,vd_to)
-        clat,clon,cz=build_pipe(lat, lon ,z ,h_g , g_g, g_h, online, epoch=epoch)
+        h_g, g_g, g_h = inputs(vd_from, vd_to)
+        clat, clon, cz = build_pipe(lat, lon, z, h_g, g_g, g_h, online, epoch=epoch)
 
-    return clat,clon,cz
-
-
-if __name__ == '__main__':
-
-    convert(vd_from, vd_to, lat, lon ,z, online=True, epoch=None)
+    return clat, clon, cz
