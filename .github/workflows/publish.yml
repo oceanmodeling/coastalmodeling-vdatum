@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+    if: github.event.head_commit.message != 'Merge pull request'
 
 jobs:
   build-and-publish:
