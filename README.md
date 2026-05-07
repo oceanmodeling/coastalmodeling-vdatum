@@ -2,14 +2,19 @@
 
 .. image:: https://badge.fury.io/py/coastalmodeling-vdatum.svg
     :target: https://badge.fury.io/py/coastalmodeling-vdatum
+
 .. image:: https://github.com/oceanmodeling/coastalmodeling-vdatum/actions/workflows/run-tests.yml/badge.svg
     :target: https://github.com/oceanmodeling/coastalmodeling-vdatum/actions/workflows/run-tests.yml
+
 .. image:: https://github.com/oceanmodeling/coastalmodeling-vdatum/actions/workflows/docs.yml/badge.svg
     :target: https://oceanmodeling.github.io/coastalmodeling-vdatum/
+
 .. image:: https://codecov.io/gh/oceanmodeling/coastalmodeling-vdatum/branch/main/graph/badge.svg
     :target: https://codecov.io/gh/oceanmodeling/coastalmodeling-vdatum
+
 .. image:: https://img.shields.io/badge/License-CC0%201.0-lightgrey.svg
     :target: http://creativecommons.org/publicdomain/zero/1.0/
+
 .. image:: https://img.shields.io/badge/pylint-?.??-blue
     :target: https://github.com/oceanmodeling/coastalmodeling-vdatum/actions/workflows/lint.yml
 
