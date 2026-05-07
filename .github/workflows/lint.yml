@@ -23,7 +23,4 @@ jobs:
         pip install -e .[dev]
 
     - name: Run Pylint
-      uses: MasonData/pylint-github-action@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        path: coastalmodeling_vdatum
+      uses: pylint-actions/pylint-action@v1
