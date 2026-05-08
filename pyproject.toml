@@ -35,7 +35,7 @@ dev = [
 ]
 
 [tool.setuptools_scm]
-version_scheme = "guess-next-dev"
+version_scheme = "no-guess-dev"
 local_scheme = "no-local-version"
 write_to = "coastalmodeling_vdatum/_version.py"
 tag_regex = "^v(?P<version>.*)$"
