@@ -9,7 +9,8 @@ def read_station_in(file_path: str,
     """
     Reads the station.in file in the following format:
 
-    1 1 1 1 1 1 1 1 1 !on (1)|off(0) flags for elev,air pressure,windx,windy,T,S,u,v,w,rest of tracers (expanded into subclasses of each module)
+    1 1 1 1 1 1 1 1 1 !on (1)|off(0) flags for elev,air pressure,windx,windy,T,S,u,v,w,
+    rest of tracers (expanded into subclasses of each module)
     3 !# of stations
     1 -81.871 26.648 0 !8725520
     2 -81.8075030 26.1317010 0 !8725110
@@ -44,13 +45,17 @@ def read_station_in(file_path: str,
                     parsed=line.split('!')
                     parsed,comment=parsed[0],parsed[-1]
                     parsed = parsed.split(' ')
-                    idx,lon,lat,z = int(parsed[0]),float(parsed[1]),float(parsed[2]),float(parsed[3])
+                    idx,lon,lat,z = (int(parsed[0]),
+                                     float(parsed[1]),
+                                     float(parsed[2]),
+                                     float(parsed[3]))
                     index.append(idx)
                     longitude.append(lon)
                     latitude.append(lat)
                     elevation.append(z)
                     station.append(comment)
                 except:
-                    raise ValueError(f"Please review your station.in. Failed to parse line {skip_lines+n+1}")
+                    raise ValueError(f"Please review your station.in. "
+                                     f"Failed to parse line {skip_lines+n+1}")
 
         return index,longitude,latitude,elevation,station

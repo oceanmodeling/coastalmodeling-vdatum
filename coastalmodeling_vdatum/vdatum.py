@@ -413,10 +413,10 @@ def inputs(vd_from, vd_to):
         g_h = _path.NAVD88_G2018
 
     else:
-        warnings.warn(f"Vertical datum donversion not found. \
-Datums available:'xgeoid20b','navd88','mllw','mlw','mhhw','mhw','lmsl','igld85','lwd' \
-datum conversion requested: from {vd_from} to {vd_to}\
-Note: there is no overlap between the Great Lakes and the Tidal Datums: Conversion not possible!")
+        warnings.warn(f"Vertical datum donversion not found. "
+                      f"Datums available:'xgeoid20b','navd88','mllw','mlw','mhhw','mhw','lmsl','igld85','lwd' "
+                      f"datum conversion requested: from {vd_from} to {vd_to}"
+                      f"Note: there is no overlap between the Great Lakes and the Tidal Datums: Conversion not possible!")
 
     return h_g, g_g, g_h
 
@@ -473,8 +473,8 @@ def convert(vd_from: str,
     """
 
     if vd_from and vd_to not in ['xgeoid20b', 'navd88', 'mllw', 'mlw', 'mhhw', 'mhw', 'lmsl', 'igld85', 'lwd']:
-        raise ValueError(f"{vd_from} or {vd_to} is not a valid. \
-        Please use one of the following: 'xgeoid20b','navd88','mllw','mlw','mhhw','mhw','lmsl','igld85','lwd'")
+        raise ValueError(f"{vd_from} or {vd_to} is not a valid. "
+                         f"Please use one of the following: 'xgeoid20b','navd88','mllw','mlw','mhhw','mhw','lmsl','igld85','lwd'")
 
     if vd_from == vd_to:
         _logger.info(f'Identity datum conversion from {vd_from} to {vd_to} requested. Returning input values.')
