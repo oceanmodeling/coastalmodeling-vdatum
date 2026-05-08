@@ -19,6 +19,15 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.ref }}
 
+      - name: Fetch all tags
+        run: git fetch --tags --force
+
+      - name: Debug git version state
+        run: |
+          git describe --tags --long
+          git tag --list | sort -V | tail -n 10
+          python -m setuptools_scm
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
