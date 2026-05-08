@@ -27,7 +27,7 @@ jobs:
           pip install anybadge
 
       - name: Run Pylint
-        run: pylint --fail-under=7.5 coastalmodeling_vdatum > pylint.log
+        run: pylint --fail-under=7.5 coastalmodeling_vdatum | tee pylint.log
 
       - name: Generate Pylint Badge
         run: |
@@ -82,6 +82,9 @@ jobs:
       - name: Move Pylint Badge
         run: mv pylint.svg site/
 
+      - name: Debug site contents
+        run: ls -R site
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
@@ -90,18 +93,16 @@ jobs:
   deploy:
     needs: [build_docs]
     runs-on: ubuntu-latest
+
     permissions:
       pages: write
       id-token: write
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Download artifact
-        uses: actions/download-pages-artifact@v2
-        with:
-          name: github-pages
 
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
