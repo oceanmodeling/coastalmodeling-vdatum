@@ -36,5 +36,6 @@ dev = [
 
 [tool.setuptools_scm]
 version_scheme = "post-release"
-write_to = "coastalmodeling_vdatum/_version.py"
 local_scheme = "no-local-version"
+write_to = "coastalmodeling_vdatum/_version.py"
+tag_regex = "^v(?P<version>.*)$"
